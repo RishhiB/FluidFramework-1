@@ -27,6 +27,15 @@ const MINIMUM_SEMVER_PRERELEASE_SECTIONS = 4;
 export const REQUIRED_PRERELEASE_IDENTIFIER = "internal";
 
 /**
+ * checks to see if flub generate buildVersion has set a test version
+ */
+const isTestVersion = (version: semver.SemVer) =>
+	version.major === 0 &&
+	version.minor === 0 &&
+	version.patch === 0 &&
+	version.version.includes("test");
+
+/**
  * Translates a version using the Fluid internal version scheme into two parts: the public version, and the internal
  * version, which is stored in the pre-release section of the version.
  *
@@ -172,6 +181,10 @@ export function validateVersionScheme(
 	const parsedVersion = semver.parse(version);
 	if (parsedVersion === null) {
 		throw new Error(`Couldn't parse ${version} as a semver.`);
+	}
+
+	if (isTestVersion(parsedVersion)) {
+		return true;
 	}
 
 	if (parsedVersion.prerelease.length === 0) {
