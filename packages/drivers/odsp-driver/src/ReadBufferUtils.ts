@@ -47,8 +47,10 @@ export class ReadBuffer {
 		let length = lengthArg;
 		while (length > 0) {
 			assert(!this.eof, 0x223 /* "unexpected end of buffer" */);
+			const value = this.data[this.index]
+			assert(value !== undefined, "this.data[this.index] must be defined");
 			// TODO Why are we non null asserting here?
-			res += this.data[this.index]! * multiplier;
+			res += value * multiplier;
 			this.index++;
 			multiplier *= 256;
 			length--;

@@ -33,7 +33,7 @@ export class WriteBuffer {
 			const oldData = this.data;
 			while (index < length) {
 				// TODO Why are we non null asserting here?
-				newData[index] = oldData[index]!;
+				newData[index] = oldData[index] ?? oob();
 				index++;
 			}
 			this.data = newData;
