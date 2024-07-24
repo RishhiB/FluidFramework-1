@@ -290,7 +290,7 @@ export class LocalReferenceCollection {
 		const iterator = {
 			next(): IteratorResult<LocalReferencePosition> {
 				while (subiterators.length > 0) {
-					// TODO Non null asserting, why is this not null?
+					// Non null asserting here because of the length check above
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const next = subiterators[0]!.next();
 					if (next.done === true) {

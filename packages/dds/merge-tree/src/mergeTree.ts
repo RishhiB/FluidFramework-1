@@ -598,7 +598,6 @@ export class MergeTree {
 					childIndex++, nodeIndex++ // Advance to next child & node
 				) {
 					// Insert the next node into the current block
-					// TODO Non null asserting, why is this not null?
 					this.addNode(block, nodes[nodeIndex]!);
 				}
 
@@ -669,7 +668,6 @@ export class MergeTree {
 		while (parent) {
 			const children = parent.children;
 			for (let childIndex = 0; childIndex < parent.childCount; childIndex++) {
-				// TODO Non null asserting, why is this not null?
 				const child = children[childIndex]!;
 				if ((!!prevParent && child === prevParent) || child === node) {
 					break;
@@ -1698,7 +1696,6 @@ export class MergeTree {
 		let newNode: IMergeNode | undefined;
 		let fromSplit: MergeBlock | undefined;
 		for (childIndex = 0; childIndex < block.childCount; childIndex++) {
-			// TODO Non null asserting, why is this not null?
 			child = children[childIndex]!;
 			// ensure we walk down the far edge of the tree, even if all sub-tree is eligible for zamboni
 			const isLastNonLeafBlock =
@@ -1770,9 +1767,7 @@ export class MergeTree {
 		}
 		if (newNode) {
 			for (let i = block.childCount; i > childIndex; i--) {
-				// TODO Non null asserting, why is this not null?
 				block.children[i] = block.children[i - 1]!;
-				// TODO Non null asserting, why is this not null?
 				block.children[i]!.index = i;
 			}
 			block.assignChild(newNode, childIndex, false);
@@ -1810,7 +1805,6 @@ export class MergeTree {
 		// Update ordinals to reflect lowered child count
 		this.nodeUpdateOrdinals(node);
 		for (let i = 0; i < halfCount; i++) {
-			// TODO Non null asserting, why is this not null?
 			newNode.assignChild(node.children[halfCount + i]!, i, false);
 			node.children[halfCount + i] = undefined!;
 		}
@@ -1821,7 +1815,6 @@ export class MergeTree {
 
 	public nodeUpdateOrdinals(block: MergeBlock): void {
 		for (let i = 0; i < block.childCount; i++) {
-			// TODO Non null asserting, why is this not null?
 			const child = block.children[i]!;
 			block.setOrdinal(child, i);
 			if (!child.isLeaf()) {
@@ -2248,7 +2241,6 @@ export class MergeTree {
 						{ op: removeOp },
 					);
 				} /* op.type === MergeTreeDeltaType.ANNOTATE */ else {
-					// TODO Non null asserting, why is this not null?
 					const props = pendingSegmentGroup.previousProps![i]!;
 					const annotateOp = createAnnotateRangeOp(start, start + segment.cachedLength, props);
 					this.annotateRange(
@@ -2421,7 +2413,6 @@ export class MergeTree {
 		}
 
 		for (let i = 0; i < newOrder.length; i++) {
-			// TODO Non null asserting, why is this not null?
 			const seg = newOrder[i]!;
 			const { parent, index, ordinal } = currentOrder[i]!;
 			parent?.assignChild(seg, index, false);
@@ -2516,7 +2507,6 @@ export class MergeTree {
 		const leftmostTiles = createMap<Marker>();
 
 		for (let i = 0; i < block.childCount; i++) {
-			// TODO Non null asserting, why is this not null?
 			const node = block.children[i]!;
 			const nodeLength = nodeTotalLength(this, node);
 			if (nodeLength !== undefined) {

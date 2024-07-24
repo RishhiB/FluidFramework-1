@@ -1057,7 +1057,7 @@ export class Client extends TypedEventEmitter<IClientEvents> {
 					// eslint-disable-next-line import/no-deprecated
 					return createGroupOp();
 				}
-				// TODO Non null asserting, why is this not null?
+				// Non null asserting because of the isArray and length check above
 				firstGroup = segmentGroup[0]!;
 			} else {
 				firstGroup = segmentGroup;
