@@ -39,13 +39,12 @@ import {
 import type { OdspResourceTokenFetchOptions } from "@fluidframework/odsp-driver-definitions/internal";
 import { wrapConfigProviderWithDefaults } from "@fluidframework/telemetry-utils/internal";
 import { v4 as uuid } from "uuid";
-
-import type { TokenResponse } from "./interfaces.js";
 import type {
 	OdspClientProps,
 	OdspConnectionConfig,
 	OdspContainerAttachProps,
 	OdspContainerServices,
+	TokenResponse
 } from "./interfaces.js";
 import { createOdspAudienceMember } from "./odspAudience.js";
 import { type IOdspTokenProvider } from "./token.js";
