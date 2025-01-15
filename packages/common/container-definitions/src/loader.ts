@@ -9,6 +9,7 @@ import type {
 	IEventProvider,
 	IRequest,
 } from "@fluidframework/core-interfaces";
+import type { DisconnectReason } from "@fluidframework/core-interfaces/internal";
 import type {
 	IClient,
 	IClientDetails,
@@ -194,7 +195,7 @@ export interface IContainerEvents extends IEvent {
 	 *
 	 * - `error`: If the container was closed due to error, this will contain details about the error that caused it.
 	 *
-	 * @see {@link IContainer.close}
+	 * @see {@link IContainer.(close:1)}
 	 */
 	(event: "closed", listener: (error?: ICriticalContainerError) => void);
 
@@ -205,7 +206,7 @@ export interface IContainerEvents extends IEvent {
 	 *
 	 * - `error`: If the container was disposed due to error, this will contain details about the error that caused it.
 	 *
-	 * @see {@link IContainer.dispose}
+	 * @see {@link IContainer.(dispose:1)}
 	 */
 	(event: "disposed", listener: (error?: ICriticalContainerError) => void);
 
@@ -412,6 +413,7 @@ export interface IContainer extends IEventProvider<IContainerEvents> {
 	 *
 	 * @param error - If the container is being closed due to error, this provides details about the error that
 	 * resulted in closing it.
+	 * @param disconnectReason - The reason for disconnecting the container
 	 */
 	close(error?: ICriticalContainerError): void;
 	close(disconnectReason?: DisconnectReason, error?: ICriticalContainerError): void;

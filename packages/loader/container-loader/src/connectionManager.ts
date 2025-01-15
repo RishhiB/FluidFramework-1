@@ -8,13 +8,13 @@ import { ICriticalContainerError } from "@fluidframework/container-definitions";
 import {
 	IDeltaQueue,
 	ReadOnlyInfo,
-	DisconnectReason,
 } from "@fluidframework/container-definitions/internal";
 import {
 	IDisposable,
 	ITelemetryBaseProperties,
 	LogLevel,
 } from "@fluidframework/core-interfaces";
+import { DisconnectReason } from "@fluidframework/core-interfaces/internal";
 import { assert } from "@fluidframework/core-utils/internal";
 import { ConnectionMode, IClient, IClientDetails } from "@fluidframework/driver-definitions";
 import {
@@ -443,11 +443,6 @@ export class ConnectionManager implements IConnectionManager {
 		this._reconnectMode = ReconnectMode.Never;
 
 		this._outbound.clear();
-
-		const text =
-			typeof disconnectReasonOrError === "string"
-				? disconnectReasonOrError
-				: "Closing DeltaManager";
 
 		const finalSwitchToReadonly =
 			typeof errorOrSwitchToReadonly === "boolean"

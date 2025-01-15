@@ -38,7 +38,10 @@ import {
 	ITelemetryBaseProperties,
 	LogLevel,
 } from "@fluidframework/core-interfaces";
-import { type ISignalEnvelope } from "@fluidframework/core-interfaces/internal";
+import {
+	DisconnectReason,
+	type ISignalEnvelope,
+} from "@fluidframework/core-interfaces/internal";
 import { assert, isPromiseLike, unreachableCase } from "@fluidframework/core-utils/internal";
 import {
 	IClient,
@@ -1054,8 +1057,11 @@ export class Container
 		return this.protocolHandler.quorum;
 	}
 
-	public dispose(errorOrReason?: ICriticalContainerError | DisconnectReason, error?: ICriticalContainerError): void {
-		if (typeof errorOrReason === 'string') {
+	public dispose(
+		errorOrReason?: ICriticalContainerError | DisconnectReason,
+		error?: ICriticalContainerError,
+	): void {
+		if (typeof errorOrReason === "string") {
 			// Called as dispose(disconnectReason, error)
 			this.verifyClosedAfter(() => this._deltaManager.dispose(errorOrReason, error));
 		} else {
@@ -1064,12 +1070,15 @@ export class Container
 		}
 	}
 
-	public close(errorOrReason?: ICriticalContainerError | DisconnectReason, error?: ICriticalContainerError): void {
+	public close(
+		errorOrReason?: ICriticalContainerError | DisconnectReason,
+		error?: ICriticalContainerError,
+	): void {
 		// 1. Ensure that close sequence is exactly the same no matter if it's initiated by host or by DeltaManager
 		// 2. We need to ensure that we deliver disconnect event to runtime properly. See connectionStateChanged
 		//    handler. We only deliver events if container fully loaded. Transitioning from "loading" ->
 		//    "closing" will lose that info (can also solve by tracking extra state).
-		if (typeof errorOrReason === 'string') {
+		if (typeof errorOrReason === "string") {
 			// Called as close(disconnectReason, error)
 			this.verifyClosedAfter(() => this._deltaManager.close(errorOrReason, error));
 		} else {

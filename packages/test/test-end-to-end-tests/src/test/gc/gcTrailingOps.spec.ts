@@ -12,8 +12,6 @@ import {
 } from "@fluid-private/test-version-utils";
 import { DisconnectReason } from "@fluidframework/container-definitions/internal";
 import { IGCRuntimeOptions } from "@fluidframework/container-runtime/internal";
-// eslint-disable-next-line import/no-internal-modules
-import type { IGarbageCollectionNodeData } from "@fluidframework/container-runtime/internal/test/gc";
 import { delay } from "@fluidframework/core-utils/internal";
 import { ISummaryTree, SummaryType } from "@fluidframework/driver-definitions";
 import { channelsTreeName, gcTreeKey } from "@fluidframework/runtime-definitions/internal";
@@ -109,7 +107,7 @@ describeCompat("GC trailing ops tests", "NoCompat", (getTestObjectProvider) => {
 			// If expecting the GC state to be a handle, validate that and return.
 			if (expectGCStateHandle) {
 				assert.equal(
-					summaryTree.tree[gcTreeKey]?.type,
+					summaryTree.tree[gcTreeKey].type,
 					SummaryType.Handle,
 					"Expecting the GC tree to be handle",
 				);
@@ -119,8 +117,7 @@ describeCompat("GC trailing ops tests", "NoCompat", (getTestObjectProvider) => {
 			// Validate that the GC state does contains an entry for the data store.
 			const gcState = getGCStateFromSummary(summaryTree);
 			assert(gcState !== undefined, "GC tree is not available in the summary");
-			const dataStoreGCData: IGarbageCollectionNodeData | undefined =
-				gcState.gcNodes[dataStoreNodePath];
+			const dataStoreGCData = gcState.gcNodes[dataStoreNodePath];
 			assert(
 				dataStoreGCData !== undefined,
 				`Data store ${dataStoreNodePath} should be present in GC state`,

@@ -8,10 +8,10 @@ import type { IAudience } from "@fluidframework/container-definitions";
 import type {
 	IContainer,
 	IContainerEvents,
-	DisconnectReason,
 } from "@fluidframework/container-definitions/internal";
 import { ConnectionState } from "@fluidframework/container-loader";
 import type { IErrorBase, IRequest } from "@fluidframework/core-interfaces";
+import type { DisconnectReason } from "@fluidframework/core-interfaces/internal";
 import type { IClient } from "@fluidframework/driver-definitions";
 import { MockAudience } from "@fluidframework/test-runtime-utils/internal";
 
@@ -46,7 +46,7 @@ class MockContainer
 		this.emit("attached");
 	}
 
-	public dispose(disconnectReason: DisconnectReason, error?: IErrorBase | undefined): void {
+	public dispose(errorOrReason?: IErrorBase | DisconnectReason, error?: IErrorBase): void {
 		this.emit("disposed");
 	}
 
