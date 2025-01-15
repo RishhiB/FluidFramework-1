@@ -40,16 +40,6 @@ export interface ContainerWarning extends IErrorBase_2 {
     logged?: boolean;
 }
 
-// @alpha
-export const DisconnectReason: {
-    readonly Expected: "Expected";
-    readonly Corruption: "Corruption";
-    readonly Unknown: "Unknown";
-};
-
-// @alpha
-export type DisconnectReason = (typeof DisconnectReason)[keyof typeof DisconnectReason];
-
 // @public
 export interface IAudience extends IEventProvider<IAudienceEvents> {
     getMember(clientId: string): IClient | undefined;
@@ -108,14 +98,18 @@ export interface IContainer extends IEventProvider<IContainerEvents> {
     readonly attachState: AttachState;
     readonly audience: IAudience;
     readonly clientId?: string | undefined;
-    close(disconnectReason: DisconnectReason, error?: ICriticalContainerError): void;
+    close(error?: ICriticalContainerError): void;
+    // (undocumented)
+    close(disconnectReason?: DisconnectReason, error?: ICriticalContainerError): void;
     readonly closed: boolean;
     connect(): void;
     readonly connectionState: ConnectionState;
     containerMetadata: Record<string, string>;
     deltaManager: IDeltaManager<ISequencedDocumentMessage, IDocumentMessage>;
     disconnect(): void;
-    dispose(disconnectReason: DisconnectReason, error?: ICriticalContainerError): void;
+    dispose(error?: ICriticalContainerError): void;
+    // (undocumented)
+    dispose(disconnectReason?: DisconnectReason, error?: ICriticalContainerError): void;
     readonly disposed?: boolean;
     forceReadonly?(readonly: boolean): any;
     getAbsoluteUrl(relativeUrl: string): Promise<string | undefined>;
