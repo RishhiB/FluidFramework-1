@@ -53,7 +53,12 @@ async function start(): Promise<void> {
 
 	if (location.hash.length === 0) {
 		const container = await createDetachedContainer({
-			codeDetails: { package: "1.0" },
+			codeDetails: {
+				package: "1.0",
+				config: {
+					"FluidFramework.MeTAParserFormat": "TreeRootDataObjectV1",
+				},
+			},
 			urlResolver,
 			documentServiceFactory: createRouterliciousDocumentServiceFactory(tokenProvider),
 			codeLoader,

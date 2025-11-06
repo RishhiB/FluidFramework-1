@@ -51,7 +51,12 @@ if (location.hash.length === 0) {
 	id = Date.now().toString();
 	const createNewRequest = createCreateNewRequest(id);
 	container = await createDetachedContainer({
-		codeDetails: { package: "1.0" },
+		codeDetails: {
+			package: "1.0",
+			config: {
+				"FluidFramework.MeTAParserFormat": "UnsupportedFormatValue",
+			},
+		},
 		urlResolver,
 		documentServiceFactory,
 		codeLoader,

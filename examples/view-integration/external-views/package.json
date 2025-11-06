@@ -51,11 +51,11 @@
 		"@fluidframework/datastore": "workspace:~",
 		"@fluidframework/datastore-definitions": "workspace:~",
 		"@fluidframework/local-driver": "workspace:~",
-		"@fluidframework/map": "workspace:~",
 		"@fluidframework/presence": "workspace:~",
 		"@fluidframework/runtime-definitions": "workspace:~",
 		"@fluidframework/runtime-utils": "workspace:~",
 		"@fluidframework/server-local-server": "^7.0.0",
+		"@fluidframework/tree": "workspace:~",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
 		"uuid": "^11.1.0"

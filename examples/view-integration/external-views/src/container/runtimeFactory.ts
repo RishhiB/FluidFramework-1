@@ -14,8 +14,9 @@ import type { FluidObject } from "@fluidframework/core-interfaces";
 
 import { DiceRollerFactory } from "./diceRoller/index.js";
 
-const diceRollerId = "dice-roller";
-const diceRollerRegistryKey = "dice-roller";
+// Use the IDs that MeTA processor expects for tree-based data objects
+const diceRollerId = "treeRootDOId"; // Data store ID
+const diceRollerRegistryKey = "treeRootDO"; // Registry type key
 const diceRollerFactory = new DiceRollerFactory();
 
 export class DiceRollerContainerRuntimeFactory implements IRuntimeFactory {
@@ -43,6 +44,10 @@ export class DiceRollerContainerRuntimeFactory implements IRuntimeFactory {
 			registryEntries: new Map([[diceRollerRegistryKey, Promise.resolve(diceRollerFactory)]]),
 			provideEntryPoint,
 			existing,
+			// Enable runtime ID compression which is required for SharedTree
+			runtimeOptions: {
+				enableRuntimeIdCompressor: "on",
+			},
 		});
 
 		if (!existing) {

@@ -70,7 +70,12 @@ let attach: (() => void) | undefined;
 
 if (location.hash.length === 0) {
 	container = await createDetachedContainer({
-		codeDetails: { package: "1.0" },
+		codeDetails: {
+			package: "1.0",
+			config: {
+				"FluidFramework.MeTAParserFormat": "TreeRootDataObjectV1",
+			},
+		},
 		urlResolver,
 		documentServiceFactory,
 		codeLoader,
